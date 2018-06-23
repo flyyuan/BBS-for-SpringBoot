@@ -1,4 +1,4 @@
-package com.bennyshi.demo.Mapper;
+package com.bennyshi.demo.dao;
 
 public interface ClassMapper {
 }

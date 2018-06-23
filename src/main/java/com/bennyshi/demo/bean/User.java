@@ -1,29 +1,80 @@
 package com.bennyshi.demo.bean;
 
-import java.io.Serializable;
+import java.util.Date;
 
+public class User{
 
-public class User implements Serializable {
-
-    private static final long serialVersionUID = 8655851615465363473L;
 
     private Long id;
     private String username;
     private String password;
+    private int type;
+    private int classId;
+    private Date createTime;
+    private Date updateTime;
+    private String image;
 
-    public User() {
+    public Long getId() {
+        return id;
     }
 
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
-    public User(Long id, String username, String password) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    // TODO  省略get set
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int getClassId() {
+        return classId;
+    }
+
+    public void setClassId(int classId) {
+        this.classId = classId;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 }
