@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * <p>
  * 
@@ -21,9 +23,10 @@ import lombok.experimental.Accessors;
 @TableName("board_post_reply")
 public class PostReply extends BaseEntity {
 
-    private int id;
+    @NotNull(message = "id不能为空！")
+    public int id;
 
-    private Integer postId;
+    public Integer postId;
 
     private String content;
 
@@ -31,7 +34,7 @@ public class PostReply extends BaseEntity {
 
     public LocalDateTime updateDate;
 
-    private String adminId;
+    public Long adminId;
 
     private Integer goodcount;
 

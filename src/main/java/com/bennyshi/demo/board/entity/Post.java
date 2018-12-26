@@ -23,7 +23,7 @@ import lombok.experimental.Accessors;
 @TableName("board_post")
 public class Post extends BaseEntity {
 
-    private int id;
+    public int id;
 
     private String title;
 

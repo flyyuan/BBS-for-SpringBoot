@@ -105,12 +105,22 @@ public class PostController extends BaseController {
             return baseResponse;
         }
 
-        if(postService.updateById(post)){
-            baseResponse.setSuccess(true);
-            baseResponse.setMsg("修改成功");
+        Post postOrgin = postService.getById(post.id);
+        Parent parent = parentService.getById(postOrgin.parId);
+        Sub sub = subService.getById(postOrgin.subId);
+
+        if(AdminJudge.admin(user.getId(), postOrgin.adminId, user.getState())
+                || AdminJudge.admin(user.getId(), sub.adminId, user.getState())
+                || AdminJudge.admin(user.getId(), parent.adminId, user.getState())
+        ){
+            if(postService.updateById(post)){
+                baseResponse = ResponseGenerator.setSuccessRs(baseResponse);
+            }else{
+                baseResponse = ResponseGenerator.setFailRs(baseResponse);
+            }
         }else{
             baseResponse.setSuccess(false);
-            baseResponse.setMsg("修改失败，参数有误");
+            baseResponse.setMsg("删除失败,非贴主或非管理员");
         }
 
         return baseResponse;
