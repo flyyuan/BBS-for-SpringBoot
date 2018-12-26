@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author Benny Shi
  * @date 2018/12/23
  */
-@EnableTransactionManagement
 @Configuration
+@EnableTransactionManagement
 @MapperScan("com.baomidou.cloud.service.*.mapper*")
 public class MybatisPlusConfig {
 

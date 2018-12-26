@@ -13,6 +13,7 @@ public class User{
     private Date createTime;
     private Date updateTime;
     private String image;
+    private int state;
 
     public Long getId() {
         return id;
@@ -76,5 +77,13 @@ public class User{
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 }

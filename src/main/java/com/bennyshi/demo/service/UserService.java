@@ -15,9 +15,9 @@ public class UserService {
     @Autowired
     private UserDao userDao;
 
-    public Boolean insertByUser(String username, String password, String classId, Date createTime, Date updateTime, String image) {
+    public Boolean insertByUser(String username, String password) {
         password = MD5Util.crypt(password);
-        Boolean insert = userDao.insertByUser(username, password, "0", new Date(), new Date(), "https://pic2.zhimg.com/v2-1e02c1531c33f9460ae82eb88a999cdd_r.jpg");
+        Boolean insert = userDao.insertByUser(username, password, new Date(), new Date());
         return insert;
     }
 

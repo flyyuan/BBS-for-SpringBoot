@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 @Component
-public class Info {
+public class BaseResponse {
     private Boolean success;
     private Object msg;
     private Date date;
@@ -36,7 +36,7 @@ public class Info {
     }
 
     public Date getDate() {
-        return date;
+        return new Date();
     }
 
     public void setDate(Date date) {

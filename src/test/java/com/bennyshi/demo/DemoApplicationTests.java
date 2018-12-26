@@ -31,7 +31,7 @@ public class DemoApplicationTests {
 
 	@Test
 	public void test1() throws Exception {
- 		Boolean insert = userService.insertByUser("222", "2223", "0", new Date(), new Date(), "https://pic2.zhimg.com/v2-1e02c1531c33f9460ae82eb88a999cdd_r.jpg");
+ 		Boolean insert = userService.insertByUser("222", "2223");
 		log.info(String.valueOf(insert));
 
 	}

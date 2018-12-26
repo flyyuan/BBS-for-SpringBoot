@@ -1,20 +1,24 @@
 package com.bennyshi.demo.controller;
 
-import com.bennyshi.demo.bean.Info;
+import com.bennyshi.demo.bean.BaseResponse;
 import com.bennyshi.demo.bean.InfoWithToken;
 import com.bennyshi.demo.bean.User;
 import com.bennyshi.demo.service.AuthenticationService;
 import com.bennyshi.demo.service.UserService;
 import com.bennyshi.demo.util.MD5Util;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
 
+@Api(tags = "用户接口--登录注册")
 @RestController
 @RequestMapping("/user/*")
 @ResponseBody
+@CrossOrigin
 public class UserController {
 
     @Autowired
@@ -22,49 +26,44 @@ public class UserController {
     @Autowired
     private AuthenticationService authenticationService;
 
+    @ApiOperation(value = "注册", notes="传账号密码")
     @RequestMapping(path = "/register", method = RequestMethod.POST)
-    public Info register(@RequestBody User user) {
-            Info info = new Info();
+    public BaseResponse register(@RequestBody User user) {
+            BaseResponse baseResponse = new BaseResponse();
             String username = user.getUsername();
             String password = user.getPassword();
             if(username.equals("")){
-                info.setMsg("用户名为空");
-                info.setSuccess(false);
-                info.setDate(new Date());
-                return info;
+                baseResponse.setMsg("用户名为空");
+                baseResponse.setSuccess(false);
+                return baseResponse;
             }
             if(password.equals("")){
-                info.setMsg("密码为空");
-                info.setSuccess(false);
-                info.setDate(new Date());
-                return info;
+                baseResponse.setMsg("密码为空");
+                baseResponse.setSuccess(false);
+                return baseResponse;
             }
-
             if(!userService.findByUsername(username).isEmpty()){
-                info.setMsg("用户名重复");
-                info.setSuccess(false);
-                info.setDate(new Date());
-                return info;
+                baseResponse.setMsg("用户名重复");
+                baseResponse.setSuccess(false);
+                return baseResponse;
             }
-
-            Boolean insert = userService.insertByUser(username, password, "0", new Date(), new Date(), "https://pic2.zhimg.com/v2-1e02c1531c33f9460ae82eb88a999cdd_r.jpg");
+            Boolean insert = userService.insertByUser(username, password);
             if (insert){
-                info.setMsg("注册成功");
-                info.setSuccess(true);
-                info.setDate(new Date());
+                baseResponse.setMsg("注册成功");
+                baseResponse.setSuccess(true);
             }else {
-                info.setMsg("服务器内部错误");
-                info.setSuccess(true);
-                info.setDate(new Date());
+                baseResponse.setMsg("服务器内部错误");
+                baseResponse.setSuccess(true);
             }
-            return info;
+            return baseResponse;
     }
 
 
+    @ApiOperation(value = "登录", notes="传账号密码")
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public InfoWithToken login(@RequestBody User user){
         InfoWithToken info = new InfoWithToken();
-        List<User> userList = userService.findByUsername(user.getPassword());
+        List<User> userList = userService.findByUsername(user.getUsername());
         if (!userList.isEmpty()){
             User userDb;
             userDb = userList.get(0);

@@ -15,12 +15,26 @@ public class FileService {
     @Autowired
     private FileDao fileDao;
 
-    public Boolean insertFile(String fileName,String fileUrl) {
-        Boolean insert = fileDao.insertFile(fileName, fileUrl, new Date(),  new Date());
+    public Boolean insertFile(String fileName,String fileUrl, String creater) {
+        Boolean insert = fileDao.insertFile(fileName, fileUrl, creater, new Date(),  new Date());
         return insert;
     }
 
     public List<File> findAll(){
         return fileDao.findAll();
+    }
+
+    public List<File> findMyFile(String username){
+        return fileDao.findMyFile(username);
+    }
+
+    public Boolean deleteFile(String id, String creater) {
+        Boolean delete = fileDao.deleteFile(id,creater);
+        return delete;
+    }
+
+    public Boolean updateFile(String id, String creater, String fileName){
+        Boolean update = fileDao.updateFileName(id,creater,fileName);
+        return update;
     }
 }

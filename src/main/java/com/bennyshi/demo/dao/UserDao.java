@@ -25,10 +25,10 @@ public interface UserDao {
      * @param username 用户名; password 密码（经过加密）;
      * @return 插入状态
      */
-    @Insert("INSERT INTO user(user_name, password, class_id," +
-            "create_time, update_time, image) VALUE ( #{username}, #{password}, #{classId},  #{create_time}, #{update_time}, #{image}) ")
-    Boolean  insertByUser(@Param("username") String username, @Param("password") String password, @Param("classId") String classId,
-                     @Param("create_time")Date createTime, @Param("update_time") Date updateTime, @Param("image") String image);
+    @Insert("INSERT INTO user(user_name, password," +
+            "created_time, update_time) VALUE ( #{username}, #{password},  #{created_time}, #{update_time})")
+    Boolean  insertByUser(@Param("username") String username, @Param("password") String password,
+                     @Param("created_time")Date createTime, @Param("update_time") Date updateTime);
 
     @Delete({"delete from user where id=#{id}"})
     Boolean deleteById(int id);
