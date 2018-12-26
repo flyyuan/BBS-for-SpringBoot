@@ -1,11 +1,15 @@
 package com.bennyshi.demo.bean;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Date;
 
+@Component
 public class Info {
     private Boolean success;
     private Object msg;
     private Date date;
+    private  Object data;
 
     public Boolean getSuccess() {
         return success;
@@ -21,6 +25,14 @@ public class Info {
 
     public void setMsg(Object msg) {
         this.msg = msg;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
     }
 
     public Date getDate() {
