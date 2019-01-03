@@ -21,7 +21,7 @@ import lombok.experimental.Accessors;
 @TableName("board_sub")
 public class Sub extends BaseEntity {
 
-    public Long id;
+    public int id;
 
     private Integer boardParentId;
 

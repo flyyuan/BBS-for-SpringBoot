@@ -155,7 +155,7 @@ public class PostReplyController extends BaseController {
     }
 
     private boolean admin(PostReply postReply, User user){
-        Post post = postService.getById(postReply.id);
+        Post post = postService.getById(postReply.postId);
         Parent parent = parentService.getById(post.parId);
         Sub sub = subService.getById(post.subId);
         if(AdminJudge.admin(user.getId(), postReply.adminId, user.getState())
