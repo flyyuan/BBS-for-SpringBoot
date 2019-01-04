@@ -24,23 +24,5 @@ public class DemoApplicationTests {
 
 	private static final Logger log = LoggerFactory.getLogger(DemoApplicationTests.class);
 
-	@Autowired
-	private UserDao userDao;
-	@Autowired
-	private UserService userService;
-
-	@Test
-	public void test1() throws Exception {
- 		Boolean insert = userService.insertByUser("222", "2223");
-		log.info(String.valueOf(insert));
-
-	}
-
-	@Test
-	public void test12() throws Exception {
-		List<User> is = userService.findByUsername("1353372");
-		log.info(String.valueOf(is));
-
-	}
 
 }

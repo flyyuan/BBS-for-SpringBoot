@@ -42,9 +42,9 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             if (token == null) {
                 throw new RuntimeException("无token，请重新登录");
             }
-            int id;
+            Long id;
             try {
-                id = Integer.parseInt(JWT.decode(token).getAudience().get(0));
+                id = Long.valueOf((JWT.decode(token).getAudience().get(0)));
                 // 获取 token 中的 user id
             } catch (JWTDecodeException e) {
                 throw new RuntimeException("token无效，请重新登录");

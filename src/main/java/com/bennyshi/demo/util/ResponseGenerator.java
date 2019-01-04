@@ -20,4 +20,15 @@ public class ResponseGenerator {
         baseResponse.setMsg("失败");
         return baseResponse;
     }
+
+    public static BaseResponse update(boolean state, BaseResponse baseResponse){
+        if(state){
+            baseResponse.setMsg("修改成功");
+            baseResponse.setSuccess(true);
+        }else{
+            baseResponse.setMsg("修改失败");
+            baseResponse.setSuccess(false);
+        }
+        return  baseResponse;
+    }
 }

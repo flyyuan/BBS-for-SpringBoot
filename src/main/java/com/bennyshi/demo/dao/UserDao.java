@@ -25,13 +25,13 @@ public interface UserDao {
      * @param username 用户名; password 密码（经过加密）;
      * @return 插入状态
      */
-    @Insert("INSERT INTO user(user_name, password," +
-            "created_time, update_time) VALUE ( #{username}, #{password},  #{created_time}, #{update_time})")
-    Boolean  insertByUser(@Param("username") String username, @Param("password") String password,
+    @Insert("INSERT INTO user(user_name, password, image," +
+            "created_time, update_time) VALUE ( #{username}, #{password}, #{image},  #{created_time}, #{update_time})")
+    Boolean  insertByUser(@Param("username") String username, @Param("password") String password,@Param("image") String image,
                      @Param("created_time")Date createTime, @Param("update_time") Date updateTime);
 
     @Delete({"delete from user where id=#{id}"})
-    Boolean deleteById(int id);
+    Boolean deleteById(Long id);
 
     /**
      * 用户修改密码
@@ -40,8 +40,12 @@ public interface UserDao {
      * @return 修改状态
      */
 
-    @Update("UPDATE Person SET password = #{password} WHERE id = #{id} ")
-    Boolean UpdataById(int id, String password);
+    @Update("UPDATE user SET password = #{password} WHERE id = #{id} ")
+    Boolean updataPasswordById(@Param("id") Long id, @Param("password") String password);
+
+
+    @Update("UPDATE user SET image = #{image} WHERE id = #{id} ")
+    Boolean updataUserImageById(@Param("id") Long id,@Param("image")  String image);
 
 
     /**
@@ -54,6 +58,6 @@ public interface UserDao {
     List<User> findByUsername(@Param("username") String username);
 
     @Select("SELECT * FROM user WHERE id = #{id}")
-    List<User> findByID(@Param("id") int id);
+    List<User> findByID(@Param("id") Long id);
 
 }

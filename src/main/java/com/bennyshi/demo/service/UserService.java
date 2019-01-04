@@ -15,9 +15,9 @@ public class UserService {
     @Autowired
     private UserDao userDao;
 
-    public Boolean insertByUser(String username, String password) {
+    public Boolean insertByUser(String username, String password, String image) {
         password = MD5Util.crypt(password);
-        Boolean insert = userDao.insertByUser(username, password, new Date(), new Date());
+        Boolean insert = userDao.insertByUser(username, password, image, new Date(), new Date());
         return insert;
     }
 
@@ -33,7 +33,7 @@ public class UserService {
         return userDao.findByUsername(username);
     }
 
-    public List<User> findByID(int id) {
+    public List<User> findByID(Long id) {
         return userDao.findByID(id);
     }
 }

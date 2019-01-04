@@ -1,11 +1,15 @@
 package com.bennyshi.demo.controller;
 
+import com.bennyshi.demo.ann.CurrentUser;
+import com.bennyshi.demo.ann.LoginRequired;
 import com.bennyshi.demo.bean.BaseResponse;
 import com.bennyshi.demo.bean.InfoWithToken;
 import com.bennyshi.demo.bean.User;
+import com.bennyshi.demo.dao.UserDao;
 import com.bennyshi.demo.service.AuthenticationService;
 import com.bennyshi.demo.service.UserService;
 import com.bennyshi.demo.util.MD5Util;
+import com.bennyshi.demo.util.ResponseGenerator;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +29,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private AuthenticationService authenticationService;
+    @Autowired
+    private UserDao userDao;
 
     @ApiOperation(value = "注册", notes="传账号密码")
     @RequestMapping(path = "/register", method = RequestMethod.POST)
@@ -47,7 +53,7 @@ public class UserController {
                 baseResponse.setSuccess(false);
                 return baseResponse;
             }
-            Boolean insert = userService.insertByUser(username, password);
+            Boolean insert = userService.insertByUser(username, password, user.getImage());
             if (insert){
                 baseResponse.setMsg("注册成功");
                 baseResponse.setSuccess(true);
@@ -86,6 +92,28 @@ public class UserController {
             info.setSuccess(false);
             return info;
         }
+    }
+
+    @ApiOperation(value = "修改密码", notes = "传User对象")
+    @RequestMapping(path="/resetPassword", method = RequestMethod.POST)
+    @LoginRequired
+    public BaseResponse resetPassword(@RequestBody User user, @CurrentUser User currentUser){
+        BaseResponse baseResponse = new BaseResponse();
+        Long id = currentUser.getId();
+        Boolean update = userDao.updataPasswordById(id,MD5Util.crypt(user.getPassword()));
+        baseResponse =  ResponseGenerator.update(update,baseResponse);
+        return  baseResponse;
+    }
+
+    @ApiOperation(value = "修改头像", notes = "传User对象")
+    @RequestMapping(path="/resetUserImage", method = RequestMethod.POST)
+    @LoginRequired
+    public BaseResponse resetUserImage(@RequestBody User user, @CurrentUser User currentUser){
+        BaseResponse baseResponse = new BaseResponse();
+        Long id = currentUser.getId();
+        Boolean update = userDao.updataUserImageById(id,user.getImage());
+        baseResponse =  ResponseGenerator.update(update,baseResponse);
+        return baseResponse;
     }
 
 }
